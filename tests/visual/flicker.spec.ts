@@ -26,7 +26,7 @@ async function settle(page: import('@playwright/test').Page, frames = 8): Promis
 
 test.describe('frame stability (anti-flicker)', () => {
   test('parked camera → consecutive frames are pixel-stable', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     await page.setViewportSize({ width: 800, height: 500 });
 
@@ -56,7 +56,7 @@ test.describe('frame stability (anti-flicker)', () => {
   });
 
   test('floor does not shimmer — region stability over 5 samples', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     await page.setViewportSize({ width: 800, height: 500 });
     await page.evaluate(() => (window as unknown as { __RESORT__: { flyToZone(z: string, instant?: boolean): boolean } }).__RESORT__.flyToZone('overview', true));
@@ -94,7 +94,7 @@ test.describe('frame stability (anti-flicker)', () => {
   });
 
   test('editor scene stays stable with many overlapping shadows', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     await page.setViewportSize({ width: 800, height: 500 });
     await page.evaluate(() => (window as unknown as { __RESORT__: { setMode(m: string): void } }).__RESORT__.setMode('editor'));

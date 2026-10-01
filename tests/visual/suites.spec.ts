@@ -31,7 +31,7 @@ const SUITES = [
 test.describe('visual inspection — suites', () => {
   for (const suite of SUITES) {
     test(`${suite.id} renders all zones`, async ({ page }) => {
-      await page.goto('/');
+      await page.goto('/?grain=0');
       await waitForReady(page);
       await page.setViewportSize({ width: 1024, height: 640 });
       await page.evaluate(async (id) => (window as unknown as { __RESORT__: { loadSuite(id: string): Promise<void> } }).__RESORT__.loadSuite(id), suite.id);
@@ -64,7 +64,7 @@ test.describe('visual inspection — suites', () => {
   }
 
   test('library mode podium renders models', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?grain=0');
     await waitForReady(page);
     await page.setViewportSize({ width: 1024, height: 640 });
     await page.evaluate(() => (window as unknown as { __RESORT__: { setMode(m: string): void } }).__RESORT__.setMode('library'));
@@ -77,7 +77,7 @@ test.describe('visual inspection — suites', () => {
   });
 
   test('editor mode with placed furniture renders', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?grain=0');
     await waitForReady(page);
     await page.setViewportSize({ width: 1024, height: 640 });
     await page.evaluate(() => (window as unknown as { __RESORT__: { setMode(m: string): void } }).__RESORT__.setMode('editor'));

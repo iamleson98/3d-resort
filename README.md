@@ -22,17 +22,34 @@ Every model, texture and material is generated in code — **zero external 3D/te
 - **Procedural PBR material workbench** — wood, marble, granite, terrazzo, travertine, bouclé, velvet,
   leather, brushed metal, plaster, tile, rattan, rugs, canvas art and a procedural sky — all painted
   at runtime into color / roughness / normal maps with seeded, deterministic noise.
+- **Photoreal lighting (tidewater-inspired)** — a physically based Preetham sky drives everything:
+  the visible sky through the glazing, a PMREM-baked IBL environment for every PBR material, and a
+  sun that really shines **through the window** — mullion shadows rake across the floor. Four
+  time-of-day presets (**Dawn · Midday · Golden Hour · Dusk**) transition the whole rig — sun, sky,
+  exposure, ground bounce — over 1.6 s; at dusk the interior lamps take over as real warm point lights.
+- **Cinematic post chain** — GTAO ambient occlusion (half-res, temporal) → TRAA/SMAA anti-aliasing →
+  HDR bloom → filmic grade (saturation · contrast · warmth · vignette · grain) → RCAS-style sharpen,
+  with three quality tiers and a frame-time governor that steps down automatically on slow GPUs.
+- **Room Editor, furnished** — the configurator opens on the staged suite baseline ("configure what
+  you saw"), with Clear room / Restore suite controls.
+- **Photo mode** — the camera button captures a high-resolution PNG of the current view.
+- **Sunbeam dust motes** — a drifting mote field appears when the sun is low (dawn/golden/dusk).
 - **Rendering quality** — PCF soft shadows with tuned bias, thick floor slabs and lifted rugs to
   eliminate z-fighting shimmer, capped pixel ratio, tone-mapped ACES output.
-- **Real-room photo library** — `public/rooms/` holds **77 high-resolution photographs** of the
-  actual **14 accommodation types** published on flamingoresorts.vn (hotel rooms, residences and
-  the Imperial Suite), organized one folder per room — see
-  [public/rooms/README.md](./public/rooms/README.md).
 
 ## Rendering note
 
 The app boots `WebGPURenderer` and falls back to WebGL2 (`forceWebGL: true`) where WebGPU is
 unavailable — headless/CI environments included. `window.__RESORT__.backend()` reports which one is live.
+On WebGPU the post chain uses temporal TRAA + 16-tap GTAO ("cinematic" tier); on WebGL2 it uses
+SMAA + 8-tap GTAO ("balanced"). A frame-time governor drops tiers automatically below ~30 fps.
+
+Dev-server URL params (also used by the test suites): `?fx=off` disables the post chain,
+`?grain=0` pins film grain to zero (pixel-stability tests), `?seed=0` boots the editor empty,
+`?tier=cinematic|balanced|efficient` forces a quality tier, `?shadows=off` disables shadow mapping.
+
+See `RESEARCH-PHOTOREAL.md` for the technique mapping from `dgreenheck/tidewater` and the
+tuning war stories (why ambient must sit far below the key light — the ACES-shoulder lesson).
 
 ## Getting started
 
@@ -49,6 +66,8 @@ npm run dev          # http://localhost:5173
 | `npm run test:functional`  | Playwright — real-browser behavior (needs dev server) |
 | `npm run test:visual`      | Playwright — pixel-statistics & anti-flicker checks  |
 | `npm test`                 | everything above in sequence                       |
+
+Extra dev QA scripts live in `scripts/` (screenshot capture, luminance heatmaps, shadow A/B).
 
 Browser tests need a dev server on `http://localhost:5173` (or set `RESORT_URL`).
 Headless CI uses SwiftShader flags — see `playwright.config.ts`.

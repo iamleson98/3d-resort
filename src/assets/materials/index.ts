@@ -14,9 +14,12 @@ import {
   registerNaturalMaterials,
   registerGlassMaterials,
   registerEmissiveMaterials,
+  setLampEmissiveLevel,
   registerMiscMaterials,
   artMaterial,
 } from './hard';
+
+export { setLampEmissiveLevel };
 
 export type MaterialMap = Record<string, THREE.Material>;
 

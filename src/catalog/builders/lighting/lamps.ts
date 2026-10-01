@@ -1,6 +1,6 @@
 /** Floor / table / wall lighting builders. */
 import type { ModelBuilder } from '../shared/context';
-import { box, roundedBox, cyl, sphere, group, tube, contactShadow } from '../shared/primitives';
+import { box, roundedBox, cyl, sphere, group, tube, contactShadow, lampLight } from '../shared/primitives';
 
 export const floorLampArc: ModelBuilder = (ctx) => {
   const body = ctx.get('body');
@@ -20,6 +20,7 @@ export const floorLampArc: ModelBuilder = (ctx) => {
   shadeMesh.rotation.z = 0.3;
   g.add(shadeMesh);
   g.add(sphere(0.045, bulb, 0.7, 1.46, 0, 12));
+  g.add(lampLight(5, 3.6, 0.7, 1.44, 0));
   g.add(contactShadow(0.4, 0.4, 0, 0, 0.24));
   return g;
 };
@@ -36,6 +37,7 @@ export const floorLampColumn: ModelBuilder = (ctx) => {
     g.add(box(0.4, 0.03, 0.4, body, 0, 1.5, 0));
   }
   g.add(box(0.42, 0.04, 0.42, body, 0, 0.04, 0));
+  g.add(lampLight(4.5, 3.4, 0, 0.85, 0));
   g.add(contactShadow(0.5, 0.5, 0, 0, 0.26));
   return g;
 };
@@ -50,6 +52,7 @@ export const tableLamp: ModelBuilder = (ctx) => {
   g.add(cyl(0.012, 0.012, 0.14, body, 0, 0.33, 0, 8));
   // tapered linen shade
   g.add(cyl(0.1, 0.14, 0.18, shade, 0, 0.48, 0, 24));
+  g.add(lampLight(3, 2.8, 0, 0.46, 0));
   g.add(roundedBox(0.01, 0.01, 0.01, 0.002, body, 0, 0, 0));
   return g;
 };
@@ -68,5 +71,6 @@ export const wallSconce: ModelBuilder = (ctx) => {
   shadeMesh.rotation.z = 0.9;
   g.add(shadeMesh);
   g.add(sphere(0.03, bulb, 0.2, 0.12, 0.1, 10));
+  g.add(lampLight(2.4, 2.4, 0.2, 0.14, 0.12));
   return g;
 };

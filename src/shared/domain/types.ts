@@ -156,4 +156,32 @@ export interface ResortTestApi {
   exportSpec(): object;
   stats(): { meshes: number; drawCalls: number; triangles: number };
   frameCount(): number;
+  /** --- photoreal pipeline (time of day / post chain) --- */
+  timeOfDay(): string;
+  setTimeOfDay(id: string): void;
+  setQuality(tier: string): void;
+  quality(): string;
+  postEnabled(): boolean;
+  setPostEnabled(on: boolean): void;
+  debugShadow(): ShadowDebugInfo;
+  debugStrip(what: string): number;
+}
+
+/** Shadow diagnostics (QA). */
+export interface ShadowDebugInfo {
+  shadowMapEnabled: boolean | null;
+  shadowMapType: number | null;
+  sunPos: number[];
+  sunTarget: number[];
+  sunIntensity: number;
+  sunColor: string;
+  shadowCam: { l: number; r: number; t: number; b: number; near: number; far: number; mapSize: number };
+  bias: number;
+  normalBias: number;
+  castShadowMeshes: number;
+  pointLights: number;
+  shadowMapAllocated: boolean;
+  sunVisible: boolean;
+  sunInScene: boolean;
+  targetMatrixWorld: number[];
 }

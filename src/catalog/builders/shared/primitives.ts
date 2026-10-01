@@ -111,6 +111,35 @@ export function group(children: THREE.Object3D[], x = 0, y = 0, z = 0): THREE.Gr
 }
 
 /**
+ * Real light inside a lighting fixture — warm 2700 K point source, decay 2.
+ * `candela` is the full (dusk/night) intensity; the environment rig scales it
+ * with the time-of-day lamp level via applyLampLevel(). Never casts shadows
+ * (the single sun cascade stays the only shadow mapper — anti-flicker budget).
+ */
+export function lampLight(candela = 5, dist = 3.5, x = 0, y = 0, z = 0): THREE.PointLight {
+  const l = new THREE.PointLight(0xffd9a3, candela, dist, 2);
+  l.position.set(x, y, z);
+  l.userData.lampBase = candela;
+  l.castShadow = false;
+  return l;
+}
+
+/**
+ * Scale every lampLight under `root` by the sky's lamp level (0 day → 1 dusk).
+ * Called on time-of-day transitions, mode switches and suite loads so newly
+ * mounted fixtures pick up the current level.
+ */
+export function applyLampLevel(root: THREE.Object3D, level: number): void {
+  const target = Math.max(level, 0.04); // never fully dark — a whisper of presence at noon
+  root.traverse((o) => {
+    const l = o as THREE.PointLight;
+    if ((l as unknown as { isPointLight?: boolean }).isPointLight === true && l.userData.lampBase !== undefined) {
+      l.intensity = l.userData.lampBase as number * target;
+    }
+  });
+}
+
+/**
  * Soft fake contact shadow — grounds furniture visually without
  * shadow-map acne on large receivers. depthWrite:false + fixed renderOrder
  * (anti-flicker invariant: never z-fights the floor).

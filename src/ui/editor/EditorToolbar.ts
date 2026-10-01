@@ -1,4 +1,4 @@
-/** Editor HUD — toolbar (rotate / delete / undo / redo / snap) + hint line. */
+/** Editor HUD — toolbar (rotate / delete / undo / redo / snap / clear / restore) + hint line. */
 import { el, clear } from '../kit';
 import { actionButton, iconButton } from '../components/atoms';
 
@@ -8,6 +8,8 @@ export interface EditorToolbarCallbacks {
   onUndo(): void;
   onRedo(): void;
   onSnap(on: boolean): void;
+  onClear(): void;
+  onRestore(): void;
 }
 
 export class EditorToolbar {
@@ -17,6 +19,8 @@ export class EditorToolbar {
   private rotateBtn: HTMLElement;
   private deleteBtn: HTMLElement;
   private snapBtn: HTMLElement;
+  private clearBtn: HTMLElement;
+  private restoreBtn: HTMLElement;
   private hintEl: HTMLElement;
 
   constructor(private readonly cb: EditorToolbarCallbacks) {
@@ -29,9 +33,12 @@ export class EditorToolbar {
       this.setSnap(on !== false);
       this.cb.onSnap(on !== false);
     }, { title: 'Toggle 10 cm snap' });
+    this.clearBtn = actionButton('Clear room', () => this.cb.onClear(), { title: 'Remove every placement' });
+    this.restoreBtn = actionButton('Restore suite', () => this.cb.onRestore(), { title: 'Bring back the suite baseline' });
 
     this.root = el('div', { class: 'editor-toolbar', children: [
       this.rotateBtn, this.deleteBtn, this.undoBtn, this.redoBtn, this.snapBtn,
+      this.clearBtn, this.restoreBtn,
     ] });
     this.hintEl = el('div', { class: 'hint-line', text: 'Select an object to rotate or delete it · drag on the floor to look around' });
     this.setStates(false, false, false);

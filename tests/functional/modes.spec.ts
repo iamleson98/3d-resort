@@ -4,7 +4,7 @@ import { waitForReady, expectNoErrors } from './helpers';
 
 test.describe('modes', () => {
   test('starts in showroom mode with suite panel', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     await expectNoErrors(page, async () => {
       const mode = await page.evaluate(() => (window as unknown as { __RESORT__: { mode(): string } }).__RESORT__.mode());
@@ -15,7 +15,7 @@ test.describe('modes', () => {
   });
 
   test('switches between all three modes', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     await expectNoErrors(page, async () => {
       for (const m of ['library', 'editor', 'showroom'] as const) {
@@ -26,7 +26,7 @@ test.describe('modes', () => {
   });
 
   test('mode buttons in the nav work via DOM clicks', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     await page.click('.mode-btn:has-text("Model Library")');
     await expect(page.locator('.entry-list')).toBeVisible();
@@ -39,7 +39,7 @@ test.describe('modes', () => {
 
 test.describe('showroom', () => {
   test('loads all 5 suites', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     await expectNoErrors(page, async () => {
       for (const id of ['ocean-suite', 'garden-villa', 'cliffside-penthouse', 'beachfront-villa', 'deluxe-king']) {
@@ -52,7 +52,7 @@ test.describe('showroom', () => {
   });
 
   test('suite select dropdown switches suites', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     await page.selectOption('.suite-select', 'ocean-suite');
     const active = await page.evaluate(() => (window as unknown as { __RESORT__: { activeSuite(): string } }).__RESORT__.activeSuite());
@@ -61,7 +61,7 @@ test.describe('showroom', () => {
   });
 
   test('every suite exposes its zone list and camera tours', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     await expectNoErrors(page, async () => {
       for (const id of ['deluxe-king', 'ocean-suite', 'garden-villa', 'cliffside-penthouse', 'beachfront-villa']) {
@@ -78,7 +78,7 @@ test.describe('showroom', () => {
   });
 
   test('zone tour buttons render and are clickable', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     const zoneBtns = page.locator('.zone-list .btn');
     await expect(zoneBtns.first()).toBeVisible();
@@ -91,7 +91,7 @@ test.describe('showroom', () => {
   });
 
   test('catalog API exposes 10 populated categories', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     const cat = await page.evaluate(() => (window as unknown as { __RESORT__: { catalog(): { count: number; categories: Array<{ name: string; count: number }> } } }).__RESORT__.catalog());
     expect(cat.count).toBeGreaterThanOrEqual(60);

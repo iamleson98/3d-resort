@@ -100,7 +100,7 @@ export class GridView {
     }
     const geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-    const mat = new THREE.LineBasicMaterial({ color: 0xc9a15a, transparent: true, opacity: 0.14 });
+    const mat = new THREE.LineBasicMaterial({ color: 0xc9a15a, transparent: true, opacity: 0.1 });
     const grid = new THREE.LineSegments(geo, mat);
     grid.position.y = 0.012;
     this.root.add(grid);

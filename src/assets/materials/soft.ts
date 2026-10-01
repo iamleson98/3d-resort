@@ -9,11 +9,34 @@ type SetMap = Record<string, TexSet>;
 
 export function registerSoftMaterials(sets: SetMap): Record<string, THREE.Material> {
   const out: Record<string, THREE.Material> = {};
-  for (const id of ['linen_natural', 'linen_white', 'boucle_ivory', 'velvet_emerald', 'velvet_navy', 'velvet_blush', 'velvet_charcoal', 'leather_black', 'leather_cognac', 'leather_tan']) {
-    out[id] = cachedMaterial(id, () =>
-      new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, ...triMaps(sets[id]!, id) }),
-    );
-  }
+  // Fabric sheen (tidewater's clearcoat/sheen IBL lesson): linen/boucle get a
+  // soft grazed-angle sheen, velvet gets the full retro-reflective nap.
+  const fabric = (id: string, sheen: number, sheenRoughness: number, sheenColor = 0xfff2df) =>
+    cachedMaterial(id, () =>
+      new THREE.MeshPhysicalMaterial({
+        color: 0xffffff, roughness: 1,
+        sheen, sheenRoughness, sheenColor,
+        ...triMaps(sets[id]!, id),
+      }));
+  const linen = (id: string) => fabric(id, 0.35, 0.68);
+  const velvet = (id: string) => fabric(id, 1.0, 0.33);
+  out.linen_natural = linen('linen_natural');
+  out.linen_white = linen('linen_white');
+  out.boucle_ivory = linen('boucle_ivory');
+  out.velvet_emerald = velvet('velvet_emerald');
+  out.velvet_navy = velvet('velvet_navy');
+  out.velvet_blush = velvet('velvet_blush');
+  out.velvet_charcoal = velvet('velvet_charcoal');
+  // Leather — a whisper of clearcoat gives the polished grain a grazing highlight
+  const leather = (id: string) =>
+    cachedMaterial(id, () =>
+      new THREE.MeshPhysicalMaterial({
+        color: 0xffffff, roughness: 1, clearcoat: 0.08, clearcoatRoughness: 0.5,
+        ...triMaps(sets[id]!, id),
+      }));
+  out.leather_black = leather('leather_black');
+  out.leather_cognac = leather('leather_cognac');
+  out.leather_tan = leather('leather_tan');
   return out;
 }
 

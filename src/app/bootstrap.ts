@@ -1,19 +1,32 @@
 /**
  * App bootstrap — engine, environment, feature controllers, UI wiring.
  * This is the only place all layers meet (composition root).
+ *
+ * Photoreal pipeline (tidewater-inspired): after the renderer initializes,
+ * the sky bakes a PMREM environment for IBL, the exposure follows the
+ * time-of-day preset, interior lamps glow with real point lights, and the
+ * frame renders through the cinematic PostFX chain (GTAO → AA → bloom →
+ * grade → sharpen).
  */
 import * as THREE from 'three/webgpu';
 import type { AppMode, ResortTestApi, Category } from '../shared/domain/types';
 import { Engine } from '../core/engine/Engine';
 import { CameraRig } from '../core/camera/CameraRig';
 import { createEnvironment } from '../core/environment/environment';
+import type { TimeOfDayId } from '../core/environment/sky';
+import { TIME_OF_DAY_IDS } from '../core/environment/sky';
+import { PostFX, type QualityTier } from '../core/post/PostFX';
+import { SunbeamMotes } from '../features/showroom/sunbeam';
 import { SUITES } from '../features/showroom/suites';
 import { ShowroomController } from '../features/showroom/ShowroomController';
 import { LibraryController } from '../features/library/LibraryController';
 import { EditorController } from '../features/editor/EditorController';
 import { PlacementInput } from '../features/editor/view/input';
 import { CATALOG, getEntry, getVariant, categories } from '../catalog';
+import { applyLampLevel } from '../catalog/builders/shared/primitives';
+import { setLampEmissiveLevel } from '../assets/materials';
 import { TopNav } from '../ui/nav/TopNav';
+import { AmbientBar } from '../ui/ambient/AmbientBar';
 import { CatalogBrowser } from '../ui/catalog/CatalogBrowser';
 import { SuitePanel } from '../ui/showroom/SuitePanel';
 import { SpecPanel } from '../ui/specs/SpecPanel';
@@ -46,7 +59,10 @@ export class App {
   readonly toolbar: EditorToolbar;
   readonly catalogBrowser: CatalogBrowser;
   readonly libraryBrowser: CatalogBrowser;
+  readonly ambientBar: AmbientBar;
   readonly toastHost: HTMLElement;
+  readonly motes: SunbeamMotes;
+  postfx: PostFX | null = null;
 
   private mode: AppMode = 'showroom';
   private placementInput: PlacementInput;
@@ -72,6 +88,20 @@ export class App {
     this.modeLayers.set('editor', this.editor.root);
 
     this.placementInput = new PlacementInput(opts.canvas.parentElement ?? opts.canvas, this.engine.camera!, this.editor);
+
+    // sunbeam dust motes — float over the whole scene, bounds follow the active room
+    this.motes = new SunbeamMotes();
+    this.scene.add(this.motes.root);
+
+    // sky-driven exposure and lamp glow
+    this.env.onExposure((e) => {
+      const r = this.engine.renderer;
+      if (r) r.toneMappingExposure = e;
+    });
+    this.env.onLampLevel((level) => {
+      applyLampLevel(this.scene, level);
+      setLampEmissiveLevel(level);
+    });
 
     // ------------------------------------------------ UI
     this.topNav = new TopNav(
@@ -117,6 +147,19 @@ export class App {
         this.syncToolbar();
       },
       onSnap: (on) => this.editor.setSnapEnabled(on),
+      onClear: () => {
+        this.editor.clearRoom();
+        this.refreshSpec();
+        this.syncToolbar();
+        toast('Room cleared', this.toastHost);
+      },
+      onRestore: () => {
+        this.editor.clearRoom();
+        this.editor.seedSuiteBaseline();
+        this.refreshSpec();
+        this.syncToolbar();
+        toast('Suite baseline restored', this.toastHost);
+      },
     });
     this.catalogBrowser = new CatalogBrowser(CATALOG, {
       onEntry: () => undefined,
@@ -144,6 +187,13 @@ export class App {
     this.toastHost = el('div', { class: 'toast-host' });
     this.wireEditorEvents();
 
+    // ambient bar — time of day, capture, quality (all modes)
+    this.ambientBar = new AmbientBar({
+      onTimeOfDay: (id) => this.setTimeOfDay(id),
+      onCapture: () => void this.capture(),
+      onQuality: (t) => this.setQuality(t),
+    });
+
     // ------------------------------------------------ shell DOM
     const shell = el('div', { class: 'app-shell' });
     shell.dataset.mode = 'showroom';
@@ -163,7 +213,7 @@ export class App {
     shell.append(this.topNav.root, body, toggleLeft, toggleRight);
     body.append(left, hud, right);
     const appRoot = document.getElementById('app')!;
-    appRoot.append(shell, this.toastHost);
+    appRoot.append(shell, this.ambientBar.root, this.toastHost);
 
     // engine loop hooks
     this.engine.addUpdater((dt) => {
@@ -171,6 +221,8 @@ export class App {
       this.library.update(dt);
       this.showroom.update(); // dollhouse wall culling
       this.editor.update(); // dollhouse wall culling
+      this.env.update(dt); // sky transitions (sun, IBL rebake, exposure, lamps)
+      this.motes.update(dt, this.env.sky.state.elevation);
     });
     this.engine.setScene(this.scene);
 
@@ -182,7 +234,64 @@ export class App {
 
   async start(): Promise<void> {
     await this.engine.init();
+    const params = new URLSearchParams(window.location.search);
+    // debug toggles (QA experiments): ?shadows=off
+    if (params.get('shadows') === 'off' && this.engine.renderer) {
+      this.engine.renderer.shadowMap.enabled = false;
+    }
+    // photoreal pipeline: bake the sky IBL, then attach the post chain
+    this.env.attachRenderer(this.engine.renderer!);
+    // the configurator opens on the furnished suite ("configure what you saw");
+    // tests opt out with ?seed=0 to exercise the empty-room flows
+    if (this.editor.list().length === 0 && params.get('seed') !== '0') this.editor.seedSuiteBaseline();
+    this.refreshSpec();
+    const fxOff = params.get('fx') === 'off';
+    const grainOverride = params.get('grain') !== null ? Number(params.get('grain')) : undefined;
+    const tierParam = params.get('tier') as QualityTier | null;
+    if (!fxOff) {
+      const tier: QualityTier = tierParam ?? (this.engine.backendLabel === 'WebGPU' ? 'cinematic' : 'balanced');
+      this.postfx = new PostFX(this.engine.renderer!, this.scene, this.engine.camera!, {
+        tier,
+        webgpu: this.engine.backendLabel === 'WebGPU',
+        ...(grainOverride !== undefined && Number.isFinite(grainOverride) ? { grainOverride } : {}),
+      });
+      this.engine.setPostFX(this.postfx);
+    }
+    applyLampLevel(this.scene, this.env.sky.state.lampLevel);
+    setLampEmissiveLevel(this.env.sky.state.lampLevel);
     this.engine.start();
+  }
+
+  /** Time-of-day preset — smooth 1.6 s transition of the whole lighting rig. */
+  setTimeOfDay(id: TimeOfDayId): void {
+    if (!TIME_OF_DAY_IDS.includes(id)) return;
+    this.env.setTimeOfDay(id);
+    this.ambientBar.setTimeOfDay(id);
+  }
+
+  setQuality(tier: QualityTier | 'auto'): void {
+    if (!this.postfx) return;
+    if (tier === 'auto') {
+      this.postfx.autoQuality = true;
+      return;
+    }
+    this.postfx.setTier(tier);
+  }
+
+  /** Photo mode — high-res PNG of the current frame. */
+  async capture(): Promise<void> {
+    this.ambientBar.flash();
+    const blob = await this.engine.capture();
+    if (!blob) {
+      toast('Capture failed', this.toastHost);
+      return;
+    }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `flamingo-${this.mode}-${this.env.timeOfDay}-${Date.now()}.png`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    toast('Photograph saved', this.toastHost);
   }
 
   private applyModeLayers(): void {
@@ -198,6 +307,9 @@ export class App {
     this.mode = mode;
     this.topNav.setMode(mode);
     this.applyModeLayers();
+    // newly mounted fixtures pick up the current lamp level; motes follow the active room
+    applyLampLevel(this.scene, this.env.sky.state.lampLevel);
+    this.syncMoteBounds();
     const shell = document.querySelector('.app-shell') as HTMLElement | null;
     if (shell) shell.dataset.mode = mode;
 
@@ -266,6 +378,16 @@ export class App {
     if (this.showroom.loadSuite(id)) {
       this.suitePanel.renderFor(this.showroom.activeSuite);
       this.topNav.setSuite(id);
+      applyLampLevel(this.scene, this.env.sky.state.lampLevel);
+      this.syncMoteBounds();
+    }
+  }
+
+  /** Keep the dust-mote volume over whichever room is on stage. */
+  private syncMoteBounds(): void {
+    const suite = this.mode === 'editor' ? this.editor.roomBounds : this.showroom.activeRoomBounds;
+    if (suite) {
+      this.motes.setBounds({ x0: 0, x1: suite.width, z0: 0, z1: suite.depth, height: suite.height ?? 2.6 });
     }
   }
 
@@ -361,6 +483,74 @@ export class App {
         return { meshes: s.meshes, drawCalls: r.drawCalls, triangles: Math.round(s.triangles) };
       },
       frameCount: () => self.engine.frameCount,
+      // --- photoreal pipeline
+      timeOfDay: () => self.env.timeOfDay,
+      setTimeOfDay: (id) => self.setTimeOfDay(id as TimeOfDayId),
+      setQuality: (tier) => self.setQuality(tier as QualityTier | 'auto'),
+      quality: () => (self.postfx ? self.postfx.describe() : 'off'),
+      postEnabled: () => self.postfx?.isEnabled === true,
+      setPostEnabled: (on) => self.postfx?.setEnabled(on),
+      debugShadow: () => {
+        const r = self.engine.renderer as any;
+        const sun = self.env.sun;
+        const cam = sun.shadow.camera;
+        let castShadowCount = 0;
+        let pointLights = 0;
+        self.scene.traverse((o: any) => {
+          if (o.isMesh && o.castShadow) castShadowCount++;
+          if (o.isPointLight) pointLights++;
+        });
+        return {
+          shadowMapEnabled: r?.shadowMap?.enabled ?? null,
+          shadowMapType: r?.shadowMap?.type ?? null,
+          sunPos: sun.position.toArray().map((n: number) => +n.toFixed(2)),
+          sunTarget: sun.target.position.toArray().map((n: number) => +n.toFixed(2)),
+          sunIntensity: +sun.intensity.toFixed(2),
+          sunColor: '#' + sun.color.getHexString(),
+          shadowCam: { l: cam.left, r: cam.right, t: cam.top, b: cam.bottom, near: cam.near, far: cam.far, mapSize: sun.shadow.mapSize.x },
+          bias: sun.shadow.bias, normalBias: sun.shadow.normalBias,
+          castShadowMeshes: castShadowCount,
+          pointLights,
+          shadowMapAllocated: !!sun.shadow.map,
+          sunVisible: sun.visible,
+          sunInScene: self.env.root.children.includes(sun),
+          targetMatrixWorld: sun.target.matrixWorld.toArray().map((n: number) => +n.toFixed(2)).slice(11, 14),
+        };
+      },
+      debugStrip: (what: string) => {
+        const scene = self.scene;
+        const remove: THREE.Object3D[] = [];
+        scene.traverse((o: any) => {
+          if (what.includes('points') && o.isPoints) remove.push(o);
+          if (what.includes('lamps') && o.isPointLight) remove.push(o);
+          if (what.includes('sky') && o.name === 'sky') remove.push(o);
+          if (what.includes('contact') && o.name === 'contact-shadow') remove.push(o);
+        });
+        for (const o of remove) o.parent?.remove(o);
+        if (what.includes('materials')) {
+          const plain = new (THREE as any).MeshStandardMaterial({ color: 0xd8cfc0, roughness: 0.9 });
+          scene.traverse((o: any) => {
+            if (o.isMesh && o.material) o.material = plain;
+          });
+        }
+        if (what.includes('sun')) self.env.sun.visible = false;
+        if (what.includes('freshsun')) {
+          const L = new (THREE as any).DirectionalLight(0xffffff, 4.0);
+          L.position.set(3, 8, -4);
+          self.scene.add(L, L.target);
+        }
+        if (what.includes('sunmoves')) {
+          self.env.sun.position.set(3.25 + 3, 8, 2.75 - 4);
+          self.env.sun.shadow.camera.far = 60;
+          self.env.sun.shadow.camera.updateProjectionMatrix();
+        }
+        if (what.includes('nocast')) self.env.sun.castShadow = false;
+        if (what.includes('env')) { scene.environment = null; scene.environmentIntensity = 0; }
+        if (what.includes('hemi')) {
+          scene.traverse((o: any) => { if (o.isHemisphereLight || o.isAmbientLight) o.visible = false; });
+        }
+        return remove.length;
+      },
     };
   }
 }

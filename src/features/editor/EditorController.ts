@@ -54,7 +54,8 @@ export class EditorController {
     this.root.add(this.shell.root);
     this.grid = new GridView(this.roomW, this.roomD);
     this.root.add(this.ghost.root, this.ring.root, this.grid.root);
-    fitShadowToRoom(this.env.sun, this.roomW, this.roomD, this.roomW / 2, this.roomD / 2);
+    if (this.env.fitRoom) this.env.fitRoom(this.roomW, this.roomD, this.roomW / 2, this.roomD / 2);
+    else fitShadowToRoom(this.env.sun, this.roomW, this.roomD, this.roomW / 2, this.roomD / 2);
     this.rig.flyTo({ target: new THREE.Vector3(this.roomW / 2, 1.1, this.roomD / 2), radius: Math.max(this.roomW, this.roomD) * 1.05, theta: Math.PI * 0.25, phi: Math.PI * 0.38 }, 0.01);
     this.history.reset([], 'empty-room');
   }
@@ -62,6 +63,11 @@ export class EditorController {
   onEvent(fn: (e: EditorEvent) => void): () => void {
     this.listeners.add(fn);
     return () => this.listeners.delete(fn);
+  }
+
+  /** Editor room bounds (the deluxe-king shell). */
+  get roomBounds(): { width: number; depth: number; height: number } {
+    return this.shell.bounds;
   }
 
   private emit(e: EditorEvent): void {
@@ -97,6 +103,47 @@ export class EditorController {
     this.emit('placed');
     this.select(id);
     return id;
+  }
+
+  /**
+   * Seed the configurator with the deluxe-king suite baseline — the editor
+   * opens on the furnished golden-hour room ("configure the suite you saw"),
+   * one undo-able history entry.
+   */
+  seedSuiteBaseline(): number {
+    const suite = getSuite('deluxe-king')!;
+    let n = 0;
+    for (const p of suite.placements) {
+      const entry = getEntry(p.modelId);
+      if (!entry) continue;
+      const variant = getVariant(entry, p.variantId);
+      const builder = BUILDERS[entry.builder];
+      if (!builder) continue;
+      this.seq += 1;
+      const id = `ed-${this.seq}`;
+      const obj = buildModel(builder, variant.materials, variant.params ?? {}, variant.scale ?? 1);
+      const rot = snapAngle((p.rotation * Math.PI) / 180);
+      const { x: cx, z: cz } = this.clampPlacement(p.x, p.z, rot, entry, variant.id);
+      obj.position.set(cx, 0, cz);
+      obj.rotation.y = rot;
+      obj.name = id;
+      this.root.add(obj);
+      this.placements.push({ id, modelId: p.modelId, variantId: p.variantId, x: cx, z: cz, rotation: rot, object: obj });
+      n++;
+    }
+    this.pushHistory('suite baseline');
+    this.emit('placed');
+    return n;
+  }
+
+  /** Remove everything (single undo-able history entry). */
+  clearRoom(): void {
+    for (const p of this.placements) this.root.remove(p.object);
+    this.placements = [];
+    this.selectedId = null;
+    this.ring.hide();
+    this.pushHistory('clear room');
+    this.emit('removed');
   }
 
   private clampPlacement(x: number, z: number, rotation: number, entry: CatalogEntry, variantId: string): { x: number; z: number } {

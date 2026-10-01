@@ -19,7 +19,7 @@ export function texFromCanvas(
   t.wrapT = THREE.RepeatWrapping;
   if (repeat) t.repeat.set(repeat[0], repeat[1]);
   if (srgb) t.colorSpace = THREE.SRGBColorSpace;
-  t.anisotropy = 8;
+  t.anisotropy = 16;
   texCache.set(key, t);
   return t;
 }

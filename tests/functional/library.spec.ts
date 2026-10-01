@@ -4,7 +4,7 @@ import { waitForReady, expectNoErrors } from './helpers';
 
 test.describe('library mode', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?fx=off&seed=0');
     await waitForReady(page);
     await page.evaluate(() => (window as unknown as { __RESORT__: { setMode(m: string): void } }).__RESORT__.setMode('library'));
   });

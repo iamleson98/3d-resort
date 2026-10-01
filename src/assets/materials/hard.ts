@@ -95,14 +95,29 @@ export function registerGlassMaterials(): Record<string, THREE.Material> {
 
 export function registerEmissiveMaterials(): Record<string, THREE.Material> {
   const em = (id: string, color: number, emissive: number, intensity: number, roughness = 0.4) =>
-    cachedMaterial(id, () =>
-      new THREE.MeshStandardMaterial({ color, emissive, emissiveIntensity: intensity, roughness }));
+    cachedMaterial(id, () => {
+      const m = new THREE.MeshStandardMaterial({ color, emissive, emissiveIntensity: intensity, roughness });
+      m.userData.baseEmissive = intensity;
+      lampEmissives.push(m);
+      return m;
+    });
   return {
-    bulb_warm: em('bulb_warm', 0xfff4dd, 0xffdca8, 2.2),
-    bulb_dim: em('bulb_dim', 0xfff4dd, 0xffdca8, 1.1),
+    bulb_warm: em('bulb_warm', 0xfff4dd, 0xffdca8, 2.6),
+    bulb_dim: em('bulb_dim', 0xfff4dd, 0xffdca8, 1.3),
     tv_screen: em('tv_screen', 0x0a0d12, 0x2a3d55, 0.8, 0.15),
     fire_glow: em('fire_glow', 0xffb35c, 0xff9a3c, 2.6, 0.6),
   };
+}
+
+/** Bulb/glow materials whose emissive follows the sky's lamp level. */
+const lampEmissives: THREE.MeshStandardMaterial[] = [];
+
+/** 0 = daytime (barely-there glow) → 1 = dusk (full bloom-worthy filaments). */
+export function setLampEmissiveLevel(level: number): void {
+  const k = 0.18 + level * 0.92;
+  for (const m of lampEmissives) {
+    m.emissiveIntensity = (m.userData.baseEmissive as number) * k;
+  }
 }
 
 export function registerMiscMaterials(): Record<string, THREE.Material> {

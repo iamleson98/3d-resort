@@ -39,6 +39,11 @@ export class ShowroomController {
     return this.suite;
   }
 
+  /** Room bounds of the staged suite (motes + ambient features follow this). */
+  get activeRoomBounds(): { width: number; depth: number; height: number } {
+    return this.suite.room;
+  }
+
   get activeZone(): string {
     return this.zoneId;
   }
@@ -66,6 +71,7 @@ export class ShowroomController {
     }
 
     fitShadowToRoom(this.env.sun, this.suite.room.width, this.suite.room.depth, this.suite.room.width / 2, this.suite.room.depth / 2);
+    if (this.env.fitRoom) this.env.fitRoom(this.suite.room.width, this.suite.room.depth, this.suite.room.width / 2, this.suite.room.depth / 2);
     this.zoneId = 'overview';
     this.applyZoneCamera(true);
   }
