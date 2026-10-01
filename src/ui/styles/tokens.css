@@ -1,0 +1,24 @@
+/* Design tokens — warm-luxury palette, serif display + humanist body. */
+:root {
+  --bg: #10141a;
+  --bg-2: #161b23;
+  --panel: rgba(22, 27, 35, 0.86);
+  --panel-solid: #161b23;
+  --line: rgba(201, 161, 90, 0.22);
+  --line-soft: rgba(255, 255, 255, 0.08);
+  --gold: #c9a15a;
+  --gold-strong: #dfc084;
+  --gold-soft: rgba(201, 161, 90, 0.14);
+  --ink: #f2ede3;
+  --ink-dim: #b8b2a6;
+  --ink-faint: #8a867c;
+  --danger: #b0453a;
+  --ok: #6fa07a;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', system-ui, sans-serif;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --nav-h: 62px;
+}
