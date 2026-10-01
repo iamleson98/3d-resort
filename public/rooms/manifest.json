@@ -1,0 +1,665 @@
+{
+ "summary": {
+  "Deluxe Mountain View": 5,
+  "Deluxe Ocean View": 5,
+  "Premiere Mountain View": 6,
+  "Premier Ocean View": 5,
+  "Premiere Beach Front": 5,
+  "01 Bedroom Deluxe Residence Ocean": 1,
+  "01 Bedroom Deluxe Residence Mountain": 5,
+  "01 Bedroom Premier Residence Ocean": 6,
+  "01 Bedroom Premier Residence Mountain": 6,
+  "Premiere Residence Beach Front": 5,
+  "02 Bedroom Deluxe Residence Ocean": 7,
+  "02 Bedroom Premiere Residence Ocean": 5,
+  "03 Bedroom Premiere Residence Ocean": 8,
+  "Imperial Suite": 8
+ },
+ "total": 77,
+ "rooms": {
+  "Deluxe Mountain View": [
+   {
+    "file": "deluxe-mountain-view/deluxe-mountain-view-01.jpg",
+    "source": "Deluxe-Mountain-View-1-scaled.jpg",
+    "original_url_family": "Deluxe-Mountain-View",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 129870
+   },
+   {
+    "file": "deluxe-mountain-view/deluxe-mountain-view-02.jpg",
+    "source": "Deluxe-Mountain-View-2.jpg",
+    "original_url_family": "Deluxe-Mountain-View",
+    "number": 2,
+    "dimensions": "2560x1708",
+    "size_bytes": 226035
+   },
+   {
+    "file": "deluxe-mountain-view/deluxe-mountain-view-03.jpg",
+    "source": "Deluxe-Mountain-View-3-scaled.jpg",
+    "original_url_family": "Deluxe-Mountain-View",
+    "number": 3,
+    "dimensions": "2560x1707",
+    "size_bytes": 65367
+   },
+   {
+    "file": "deluxe-mountain-view/deluxe-mountain-view-04.jpg",
+    "source": "Deluxe-Mountain-View-4.jpg",
+    "original_url_family": "Deluxe-Mountain-View",
+    "number": 4,
+    "dimensions": "2560x1707",
+    "size_bytes": 104277
+   },
+   {
+    "file": "deluxe-mountain-view/deluxe-mountain-view-05.jpg",
+    "source": "Deluxe-Mountain-View-5.jpg",
+    "original_url_family": "Deluxe-Mountain-View",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 127455
+   }
+  ],
+  "Deluxe Ocean View": [
+   {
+    "file": "deluxe-ocean-view/deluxe-ocean-view-01.jpg",
+    "source": "Deluxe-Ocean-View-1-scaled.jpg",
+    "original_url_family": "Deluxe-Ocean-View",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 112608
+   },
+   {
+    "file": "deluxe-ocean-view/deluxe-ocean-view-02.jpg",
+    "source": "Deluxe-Ocean-View-2-scaled.jpg",
+    "original_url_family": "Deluxe-Ocean-View",
+    "number": 2,
+    "dimensions": "2560x1709",
+    "size_bytes": 179513
+   },
+   {
+    "file": "deluxe-ocean-view/deluxe-ocean-view-03.jpg",
+    "source": "Deluxe-Ocean-View-3.jpg",
+    "original_url_family": "Deluxe-Ocean-View",
+    "number": 3,
+    "dimensions": "2560x1707",
+    "size_bytes": 68523
+   },
+   {
+    "file": "deluxe-ocean-view/deluxe-ocean-view-04.jpg",
+    "source": "Deluxe-Ocean-View-4-scaled.jpg",
+    "original_url_family": "Deluxe-Ocean-View",
+    "number": 4,
+    "dimensions": "2560x1707",
+    "size_bytes": 88829
+   },
+   {
+    "file": "deluxe-ocean-view/deluxe-ocean-view-05.jpg",
+    "source": "Deluxe-Ocean-View-5.jpg",
+    "original_url_family": "Deluxe-Ocean-View",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 179465
+   }
+  ],
+  "Premiere Mountain View": [
+   {
+    "file": "premiere-mountain-view/premiere-mountain-view-01.jpg",
+    "source": "Premier-Mountain-View-1-scaled.jpg",
+    "original_url_family": "Premier-Mountain-View",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 203721
+   },
+   {
+    "file": "premiere-mountain-view/premiere-mountain-view-02.jpg",
+    "source": "Premier-Mountain-View-2-scaled.jpg",
+    "original_url_family": "Premier-Mountain-View",
+    "number": 2,
+    "dimensions": "2560x1707",
+    "size_bytes": 64970
+   },
+   {
+    "file": "premiere-mountain-view/premiere-mountain-view-03.jpg",
+    "source": "Premier-Mountain-View-3.jpg",
+    "original_url_family": "Premier-Mountain-View",
+    "number": 3,
+    "dimensions": "2560x1708",
+    "size_bytes": 123537
+   },
+   {
+    "file": "premiere-mountain-view/premiere-mountain-view-04.jpg",
+    "source": "Premier-Mountain-View-4.jpg",
+    "original_url_family": "Premier-Mountain-View",
+    "number": 4,
+    "dimensions": "2560x1706",
+    "size_bytes": 223227
+   },
+   {
+    "file": "premiere-mountain-view/premiere-mountain-view-05.jpg",
+    "source": "Premier-Mountain-View-5.jpg",
+    "original_url_family": "Premier-Mountain-View",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 105789
+   },
+   {
+    "file": "premiere-mountain-view/premiere-mountain-view-06.jpg",
+    "source": "Premier-Mountain-View-6-scaled.jpg",
+    "original_url_family": "Premier-Mountain-View",
+    "number": 6,
+    "dimensions": "2560x1707",
+    "size_bytes": 150584
+   }
+  ],
+  "Premier Ocean View": [
+   {
+    "file": "premier-ocean-view/premier-ocean-view-01.jpg",
+    "source": "Premier-Ocean-View-1-scaled.jpg",
+    "original_url_family": "Premier-Ocean-View",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 183458
+   },
+   {
+    "file": "premier-ocean-view/premier-ocean-view-02.jpg",
+    "source": "Premier-Ocean-View-2-scaled.jpg",
+    "original_url_family": "Premier-Ocean-View",
+    "number": 2,
+    "dimensions": "2560x1707",
+    "size_bytes": 97231
+   },
+   {
+    "file": "premier-ocean-view/premier-ocean-view-03.jpg",
+    "source": "Premier-Ocean-View-3-scaled.jpg",
+    "original_url_family": "Premier-Ocean-View",
+    "number": 3,
+    "dimensions": "2560x1707",
+    "size_bytes": 65528
+   },
+   {
+    "file": "premier-ocean-view/premier-ocean-view-04.jpg",
+    "source": "Premier-Ocean-View-4.jpg",
+    "original_url_family": "Premier-Ocean-View",
+    "number": 4,
+    "dimensions": "2560x1707",
+    "size_bytes": 231664
+   },
+   {
+    "file": "premier-ocean-view/premier-ocean-view-05.jpg",
+    "source": "Premier-Ocean-View-5-scaled.jpg",
+    "original_url_family": "Premier-Ocean-View",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 161208
+   }
+  ],
+  "Premiere Beach Front": [
+   {
+    "file": "premiere-beach-front/premiere-beach-front-01.jpg",
+    "source": "Premier-Beachfront-1-scaled.jpg",
+    "original_url_family": "Premier-Beachfront",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 122465
+   },
+   {
+    "file": "premiere-beach-front/premiere-beach-front-02.jpg",
+    "source": "Premier-Beachfront-2-scaled.jpg",
+    "original_url_family": "Premier-Beachfront",
+    "number": 2,
+    "dimensions": "2560x1707",
+    "size_bytes": 65327
+   },
+   {
+    "file": "premiere-beach-front/premiere-beach-front-03.jpg",
+    "source": "Premier-Beachfront-3-scaled.jpg",
+    "original_url_family": "Premier-Beachfront",
+    "number": 3,
+    "dimensions": "2560x1708",
+    "size_bytes": 217296
+   },
+   {
+    "file": "premiere-beach-front/premiere-beach-front-04.jpg",
+    "source": "Premier-Beachfront-4.jpg",
+    "original_url_family": "Premier-Beachfront",
+    "number": 4,
+    "dimensions": "2560x1707",
+    "size_bytes": 177976
+   },
+   {
+    "file": "premiere-beach-front/premiere-beach-front-05.jpg",
+    "source": "Premier-Beachfront-5-scaled.jpg",
+    "original_url_family": "Premier-Beachfront",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 206914
+   }
+  ],
+  "01 Bedroom Deluxe Residence Ocean": [
+   {
+    "file": "01-bedroom-deluxe-residence-ocean/01-bedroom-deluxe-residence-ocean-01.jpg",
+    "source": "01-Bedroom-Deluxe-Residence-Ocean-2.jpg",
+    "original_url_family": "01-Bedroom-Deluxe-Residence-Ocean",
+    "number": 2,
+    "dimensions": "2560x1707",
+    "size_bytes": 140630
+   }
+  ],
+  "01 Bedroom Deluxe Residence Mountain": [
+   {
+    "file": "01-bedroom-deluxe-residence-mountain/01-bedroom-deluxe-residence-mountain-01.jpg",
+    "source": "01-Bedroom-Deluxe-Residence-Mountain-1.jpg",
+    "original_url_family": "01-Bedroom-Deluxe-Residence-Mountain",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 99944
+   },
+   {
+    "file": "01-bedroom-deluxe-residence-mountain/01-bedroom-deluxe-residence-mountain-02.jpg",
+    "source": "01-Bedroom-Deluxe-Residence-Mountain-2.jpg",
+    "original_url_family": "01-Bedroom-Deluxe-Residence-Mountain",
+    "number": 2,
+    "dimensions": "2560x1707",
+    "size_bytes": 124097
+   },
+   {
+    "file": "01-bedroom-deluxe-residence-mountain/01-bedroom-deluxe-residence-mountain-03.jpg",
+    "source": "01-Bedroom-Deluxe-Residence-Mountain-3.jpg",
+    "original_url_family": "01-Bedroom-Deluxe-Residence-Mountain",
+    "number": 3,
+    "dimensions": "2560x1707",
+    "size_bytes": 111611
+   },
+   {
+    "file": "01-bedroom-deluxe-residence-mountain/01-bedroom-deluxe-residence-mountain-04.jpg",
+    "source": "01-Bedroom-Deluxe-Residence-Mountain-4-scaled.jpg",
+    "original_url_family": "01-Bedroom-Deluxe-Residence-Mountain",
+    "number": 4,
+    "dimensions": "2560x1707",
+    "size_bytes": 114322
+   },
+   {
+    "file": "01-bedroom-deluxe-residence-mountain/01-bedroom-deluxe-residence-mountain-05.jpg",
+    "source": "01-Bedroom-Deluxe-Residence-Mountain-5.jpg",
+    "original_url_family": "01-Bedroom-Deluxe-Residence-Mountain",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 137094
+   }
+  ],
+  "01 Bedroom Premier Residence Ocean": [
+   {
+    "file": "01-bedroom-premier-residence-ocean/01-bedroom-premier-residence-ocean-01.jpg",
+    "source": "01-Bedroom-Premier-Residence-Ocean-1-scaled.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Ocean",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 87645
+   },
+   {
+    "file": "01-bedroom-premier-residence-ocean/01-bedroom-premier-residence-ocean-02.jpg",
+    "source": "01-Bedroom-Premier-Residence-Ocean-2-scaled.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Ocean",
+    "number": 2,
+    "dimensions": "2560x1707",
+    "size_bytes": 136835
+   },
+   {
+    "file": "01-bedroom-premier-residence-ocean/01-bedroom-premier-residence-ocean-03.jpg",
+    "source": "01-Bedroom-Premier-Residence-Ocean-3-scaled.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Ocean",
+    "number": 3,
+    "dimensions": "2560x1707",
+    "size_bytes": 187883
+   },
+   {
+    "file": "01-bedroom-premier-residence-ocean/01-bedroom-premier-residence-ocean-04.jpg",
+    "source": "01-Bedroom-Premier-Residence-Ocean-4-scaled.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Ocean",
+    "number": 4,
+    "dimensions": "2560x1707",
+    "size_bytes": 161139
+   },
+   {
+    "file": "01-bedroom-premier-residence-ocean/01-bedroom-premier-residence-ocean-05.jpg",
+    "source": "01-Bedroom-Premier-Residence-Ocean-5-scaled.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Ocean",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 116630
+   },
+   {
+    "file": "01-bedroom-premier-residence-ocean/01-bedroom-premier-residence-ocean-06.jpg",
+    "source": "01-Bedroom-Premier-Residence-Ocean-6.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Ocean",
+    "number": 6,
+    "dimensions": "2560x1707",
+    "size_bytes": 123367
+   }
+  ],
+  "01 Bedroom Premier Residence Mountain": [
+   {
+    "file": "01-bedroom-premier-residence-mountain/01-bedroom-premier-residence-mountain-01.jpg",
+    "source": "01-Bedroom-Premier-Residence-Mountain-1.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Mountain",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 334226
+   },
+   {
+    "file": "01-bedroom-premier-residence-mountain/01-bedroom-premier-residence-mountain-02.jpg",
+    "source": "01-Bedroom-Premier-Residence-Mountain-2.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Mountain",
+    "number": 2,
+    "dimensions": "2560x1707",
+    "size_bytes": 124938
+   },
+   {
+    "file": "01-bedroom-premier-residence-mountain/01-bedroom-premier-residence-mountain-03.jpg",
+    "source": "01-Bedroom-Premier-Residence-Mountain-3.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Mountain",
+    "number": 3,
+    "dimensions": "2560x1707",
+    "size_bytes": 140228
+   },
+   {
+    "file": "01-bedroom-premier-residence-mountain/01-bedroom-premier-residence-mountain-04.jpg",
+    "source": "01-Bedroom-Premier-Residence-Mountain-4-scaled.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Mountain",
+    "number": 4,
+    "dimensions": "2560x1707",
+    "size_bytes": 126188
+   },
+   {
+    "file": "01-bedroom-premier-residence-mountain/01-bedroom-premier-residence-mountain-05.jpg",
+    "source": "01-Bedroom-Premier-Residence-Mountain-5.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Mountain",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 197569
+   },
+   {
+    "file": "01-bedroom-premier-residence-mountain/01-bedroom-premier-residence-mountain-06.jpg",
+    "source": "01-Bedroom-Premier-Residence-Mountain-6.jpg",
+    "original_url_family": "01-Bedroom-Premier-Residence-Mountain",
+    "number": 6,
+    "dimensions": "2560x1707",
+    "size_bytes": 165808
+   }
+  ],
+  "Premiere Residence Beach Front": [
+   {
+    "file": "premiere-residence-beach-front/premiere-residence-beach-front-01.jpg",
+    "source": "Premier-Residence-Beachfront-1-scaled.jpg",
+    "original_url_family": "Premier-Residence-Beachfront",
+    "number": 1,
+    "dimensions": "2560x1899",
+    "size_bytes": 149668
+   },
+   {
+    "file": "premiere-residence-beach-front/premiere-residence-beach-front-02.jpg",
+    "source": "Premier-Residence-Beachfront-2-scaled.jpg",
+    "original_url_family": "Premier-Residence-Beachfront",
+    "number": 2,
+    "dimensions": "2560x1709",
+    "size_bytes": 206154
+   },
+   {
+    "file": "premiere-residence-beach-front/premiere-residence-beach-front-03.jpg",
+    "source": "Premier-Residence-Beachfront-3.jpg",
+    "original_url_family": "Premier-Residence-Beachfront",
+    "number": 3,
+    "dimensions": "2560x1707",
+    "size_bytes": 103223
+   },
+   {
+    "file": "premiere-residence-beach-front/premiere-residence-beach-front-04.jpg",
+    "source": "Premier-Residence-Beachfront-4.jpg",
+    "original_url_family": "Premier-Residence-Beachfront",
+    "number": 4,
+    "dimensions": "2560x1707",
+    "size_bytes": 126455
+   },
+   {
+    "file": "premiere-residence-beach-front/premiere-residence-beach-front-05.jpg",
+    "source": "Premier-Residence-Beachfront-5.jpg",
+    "original_url_family": "Premier-Residence-Beachfront",
+    "number": 5,
+    "dimensions": "2560x1933",
+    "size_bytes": 136975
+   }
+  ],
+  "02 Bedroom Deluxe Residence Ocean": [
+   {
+    "file": "02-bedroom-deluxe-residence-ocean/02-bedroom-deluxe-residence-ocean-01.jpg",
+    "source": "02-Bedroom-Deluxe-Residence-Ocean-1-scaled.jpg",
+    "original_url_family": "02-Bedroom-Deluxe-Residence-Ocean",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 173466
+   },
+   {
+    "file": "02-bedroom-deluxe-residence-ocean/02-bedroom-deluxe-residence-ocean-02.jpg",
+    "source": "02-Bedroom-Deluxe-Residence-Ocean-2-scaled.jpg",
+    "original_url_family": "02-Bedroom-Deluxe-Residence-Ocean",
+    "number": 2,
+    "dimensions": "2560x1717",
+    "size_bytes": 110823
+   },
+   {
+    "file": "02-bedroom-deluxe-residence-ocean/02-bedroom-deluxe-residence-ocean-03.jpg",
+    "source": "02-Bedroom-Deluxe-Residence-Ocean-3.jpg",
+    "original_url_family": "02-Bedroom-Deluxe-Residence-Ocean",
+    "number": 3,
+    "dimensions": "2560x1799",
+    "size_bytes": 143128
+   },
+   {
+    "file": "02-bedroom-deluxe-residence-ocean/02-bedroom-deluxe-residence-ocean-04.jpg",
+    "source": "02-Bedroom-Deluxe-Residence-Ocean-4-scaled.jpg",
+    "original_url_family": "02-Bedroom-Deluxe-Residence-Ocean",
+    "number": 4,
+    "dimensions": "2560x1707",
+    "size_bytes": 160632
+   },
+   {
+    "file": "02-bedroom-deluxe-residence-ocean/02-bedroom-deluxe-residence-ocean-05.jpg",
+    "source": "02-Bedroom-Deluxe-Residence-Ocean-5-scaled.jpg",
+    "original_url_family": "02-Bedroom-Deluxe-Residence-Ocean",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 163527
+   },
+   {
+    "file": "02-bedroom-deluxe-residence-ocean/02-bedroom-deluxe-residence-ocean-06.jpg",
+    "source": "02-Bedroom-Deluxe-Residence-Ocean-6-scaled.jpg",
+    "original_url_family": "02-Bedroom-Deluxe-Residence-Ocean",
+    "number": 6,
+    "dimensions": "2560x1707",
+    "size_bytes": 155435
+   },
+   {
+    "file": "02-bedroom-deluxe-residence-ocean/02-bedroom-deluxe-residence-ocean-07.jpg",
+    "source": "02-Bedroom-Deluxe-Residence-Ocean-View-5-scaled.jpg",
+    "original_url_family": "02-Bedroom-Deluxe-Residence-Ocean-View",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 139834
+   }
+  ],
+  "02 Bedroom Premiere Residence Ocean": [
+   {
+    "file": "02-bedroom-premiere-residence-ocean/02-bedroom-premiere-residence-ocean-01.jpg",
+    "source": "02-Bedroom-Premier-Residence-Ocean-1-scaled.jpg",
+    "original_url_family": "02-Bedroom-Premier-Residence-Ocean",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 167718
+   },
+   {
+    "file": "02-bedroom-premiere-residence-ocean/02-bedroom-premiere-residence-ocean-02.jpg",
+    "source": "02-Bedroom-Premier-Residence-Ocean-2-scaled.jpg",
+    "original_url_family": "02-Bedroom-Premier-Residence-Ocean",
+    "number": 2,
+    "dimensions": "2560x1707",
+    "size_bytes": 213659
+   },
+   {
+    "file": "02-bedroom-premiere-residence-ocean/02-bedroom-premiere-residence-ocean-03.jpg",
+    "source": "02-Bedroom-Premier-Residence-Ocean-3.jpg",
+    "original_url_family": "02-Bedroom-Premier-Residence-Ocean",
+    "number": 3,
+    "dimensions": "2560x1707",
+    "size_bytes": 134395
+   },
+   {
+    "file": "02-bedroom-premiere-residence-ocean/02-bedroom-premiere-residence-ocean-04.jpg",
+    "source": "02-Bedroom-Premier-Residence-Ocean-4.jpg",
+    "original_url_family": "02-Bedroom-Premier-Residence-Ocean",
+    "number": 4,
+    "dimensions": "2560x1799",
+    "size_bytes": 144511
+   },
+   {
+    "file": "02-bedroom-premiere-residence-ocean/02-bedroom-premiere-residence-ocean-05.jpg",
+    "source": "02-Bedroom-Premier-Residence-Ocean-5-scaled.jpg",
+    "original_url_family": "02-Bedroom-Premier-Residence-Ocean",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 103887
+   }
+  ],
+  "03 Bedroom Premiere Residence Ocean": [
+   {
+    "file": "03-bedroom-premiere-residence-ocean/03-bedroom-premiere-residence-ocean-01.jpg",
+    "source": "03-Bedroom-Premier-Residence-Ocean-1.jpg",
+    "original_url_family": "03-Bedroom-Premier-Residence-Ocean",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 255324
+   },
+   {
+    "file": "03-bedroom-premiere-residence-ocean/03-bedroom-premiere-residence-ocean-02.jpg",
+    "source": "03-Bedroom-Premier-Residence-Ocean-2.jpg",
+    "original_url_family": "03-Bedroom-Premier-Residence-Ocean",
+    "number": 2,
+    "dimensions": "2560x1910",
+    "size_bytes": 105760
+   },
+   {
+    "file": "03-bedroom-premiere-residence-ocean/03-bedroom-premiere-residence-ocean-03.jpg",
+    "source": "03-Bedroom-Premier-Residence-Ocean-3.jpg",
+    "original_url_family": "03-Bedroom-Premier-Residence-Ocean",
+    "number": 3,
+    "dimensions": "2560x1707",
+    "size_bytes": 136905
+   },
+   {
+    "file": "03-bedroom-premiere-residence-ocean/03-bedroom-premiere-residence-ocean-04.jpg",
+    "source": "03-Bedroom-Premier-Residence-Ocean-4.jpg",
+    "original_url_family": "03-Bedroom-Premier-Residence-Ocean",
+    "number": 4,
+    "dimensions": "2560x1707",
+    "size_bytes": 150575
+   },
+   {
+    "file": "03-bedroom-premiere-residence-ocean/03-bedroom-premiere-residence-ocean-05.jpg",
+    "source": "03-Bedroom-Premier-Residence-Ocean-5.jpg",
+    "original_url_family": "03-Bedroom-Premier-Residence-Ocean",
+    "number": 5,
+    "dimensions": "2560x1707",
+    "size_bytes": 179988
+   },
+   {
+    "file": "03-bedroom-premiere-residence-ocean/03-bedroom-premiere-residence-ocean-06.jpg",
+    "source": "03-Bedroom-Premier-Residence-Ocean-6.jpg",
+    "original_url_family": "03-Bedroom-Premier-Residence-Ocean",
+    "number": 6,
+    "dimensions": "15031x9750",
+    "size_bytes": 5693282
+   },
+   {
+    "file": "03-bedroom-premiere-residence-ocean/03-bedroom-premiere-residence-ocean-07.jpg",
+    "source": "03-Bedroom-Premier-Residence-Ocean-7.jpg",
+    "original_url_family": "03-Bedroom-Premier-Residence-Ocean",
+    "number": 7,
+    "dimensions": "2560x1707",
+    "size_bytes": 181302
+   },
+   {
+    "file": "03-bedroom-premiere-residence-ocean/03-bedroom-premiere-residence-ocean-08.jpg",
+    "source": "03-Bedroom-Premier-Residence-Ocean-8.jpg",
+    "original_url_family": "03-Bedroom-Premier-Residence-Ocean",
+    "number": 8,
+    "dimensions": "2560x1707",
+    "size_bytes": 190391
+   }
+  ],
+  "Imperial Suite": [
+   {
+    "file": "imperial-suite/imperial-suite-01.jpg",
+    "source": "Emperial-Suite-1-scaled.jpg",
+    "original_url_family": "Emperial-Suite",
+    "number": 1,
+    "dimensions": "2560x1707",
+    "size_bytes": 221455
+   },
+   {
+    "file": "imperial-suite/imperial-suite-02.jpg",
+    "source": "Emperial-Suite-2-scaled.jpg",
+    "original_url_family": "Emperial-Suite",
+    "number": 2,
+    "dimensions": "2560x1707",
+    "size_bytes": 256241
+   },
+   {
+    "file": "imperial-suite/imperial-suite-03.jpg",
+    "source": "Emperial-Suite-3-scaled.jpg",
+    "original_url_family": "Emperial-Suite",
+    "number": 3,
+    "dimensions": "2560x1707",
+    "size_bytes": 195137
+   },
+   {
+    "file": "imperial-suite/imperial-suite-04.jpg",
+    "source": "Emperial-Suite-4.jpg",
+    "original_url_family": "Emperial-Suite",
+    "number": 4,
+    "dimensions": "2560x1707",
+    "size_bytes": 292529
+   },
+   {
+    "file": "imperial-suite/imperial-suite-05.jpg",
+    "source": "Emperial-Suite-6.jpg",
+    "original_url_family": "Emperial-Suite",
+    "number": 6,
+    "dimensions": "2560x1707",
+    "size_bytes": 269878
+   },
+   {
+    "file": "imperial-suite/imperial-suite-06.jpg",
+    "source": "Emperial-Suite-7-1.jpg",
+    "original_url_family": "Emperial-Suite",
+    "number": 7,
+    "dimensions": "2560x1707",
+    "size_bytes": 212284
+   },
+   {
+    "file": "imperial-suite/imperial-suite-07.jpg",
+    "source": "Emperial-Suite-8-scaled.jpg",
+    "original_url_family": "Emperial-Suite",
+    "number": 8,
+    "dimensions": "2560x1707",
+    "size_bytes": 198751
+   },
+   {
+    "file": "imperial-suite/imperial-suite-08.jpg",
+    "source": "Emperial-Suite-10.jpg",
+    "original_url_family": "Emperial-Suite",
+    "number": 10,
+    "dimensions": "2560x1707",
+    "size_bytes": 211193
+   }
+  ]
+ }
+}

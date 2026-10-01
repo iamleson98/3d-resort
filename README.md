@@ -24,6 +24,10 @@ Every model, texture and material is generated in code — **zero external 3D/te
   at runtime into color / roughness / normal maps with seeded, deterministic noise.
 - **Rendering quality** — PCF soft shadows with tuned bias, thick floor slabs and lifted rugs to
   eliminate z-fighting shimmer, capped pixel ratio, tone-mapped ACES output.
+- **Real-room photo library** — `public/rooms/` holds **77 high-resolution photographs** of the
+  actual **14 accommodation types** published on flamingoresorts.vn (hotel rooms, residences and
+  the Imperial Suite), organized one folder per room — see
+  [public/rooms/README.md](./public/rooms/README.md).
 
 ## Rendering note
 
